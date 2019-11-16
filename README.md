@@ -6,6 +6,8 @@ Visit the corresponding reposiroty to see the code:
 - [Front-end Repository](https://github.com/fschirinzi/HYU-SE-Frontend)
 - [Back-end Repository {not existing yet}]()
 
+**Important links**
+- [REST API DOC](./REST-API.md)
 
 ## Abstract
 During the second semester at Hanyang
