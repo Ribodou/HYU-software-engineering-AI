@@ -4,7 +4,7 @@
 This repository contains only the documentation of the project.
 Visit the corresponding reposiroty to see the code:
 - [Front-end Repository](https://github.com/fschirinzi/HYU-SE-Frontend)
-- [Back-end Repository {not existing yet}]()
+- [Back-end Repository](https://github.com/Ribodou/HYU-SE-Backend)
 
 **Important links**
 - [REST API DOC](./REST-API.md)
