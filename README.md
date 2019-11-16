@@ -36,6 +36,16 @@ established algorithms and make them better. We will not
 only provide you with a tool to win a bet but also make it to
 you possible to reach your desires and dreams.
 
+## Status
+See the documentation to see the requirements of this project.
+### Working
+- Start a game
+- Load old game
+- Play against the AI
+
+### Next possible feature implementation
+- Undo move
+
 ## Contributors
 - **Fabio Motta** (AI)
 - **Marie Pors** (AI)
