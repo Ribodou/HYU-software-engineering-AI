@@ -1,0 +1,138 @@
+{
+    "id": "mockoon_export",
+    "appVersion": "1.6.0",
+    "checksum": "cd3cee9a4e3c98098c25b633a5a1e744",
+    "subject": "full",
+    "data": [
+        {
+            "uuid": "c9568a30-06c4-11ea-8b9d-6558f27bd000",
+            "name": "Connect Four",
+            "endpointPrefix": "api",
+            "latency": 0,
+            "port": 3333,
+            "routes": [
+                {
+                    "uuid": "c9568a31-06c4-11ea-8b9d-6558f27bd000",
+                    "documentation": "",
+                    "method": "get",
+                    "endpoint": "game/start",
+                    "responses": [
+                        {
+                            "uuid": "c9568a32-06c4-11ea-8b9d-6558f27bd000",
+                            "body": "{\n  \"id\": {{int 1 99999999}}\n}",
+                            "latency": 0,
+                            "statusCode": "200",
+                            "headers": [
+                                {
+                                    "key": "",
+                                    "value": ""
+                                }
+                            ],
+                            "filePath": "",
+                            "sendFileAsBody": false,
+                            "rules": []
+                        }
+                    ],
+                    "enabled": true
+                },
+                {
+                    "uuid": "6926ae70-06c8-11ea-bbed-1fa587c193a8",
+                    "documentation": "",
+                    "method": "get",
+                    "endpoint": "game/533806",
+                    "responses": [
+                        {
+                            "uuid": "6926ae71-06c8-11ea-bbed-1fa587c193a8",
+                            "body": "{\n  \"12\": {\n    \"row\": 1,\n    \"col\": 2,\n    \"color\": \"red\"\n  },\n  \"02\": {\n    \"row\": 0,\n    \"col\": 2,\n    \"color\": \"red\"\n  },\n  \"03\": {\n    \"row\": 0,\n    \"col\": 3,\n    \"color\": \"black\"\n  },\n  \"05\": {\n    \"row\": 0,\n    \"col\": 5,\n    \"color\": \"black\"\n  },\n  \"06\": {\n    \"row\": 0,\n    \"col\": 6,\n    \"color\": \"red\"\n  }\n}",
+                            "latency": 0,
+                            "statusCode": "200",
+                            "headers": [
+                                {
+                                    "key": "",
+                                    "value": ""
+                                }
+                            ],
+                            "filePath": "",
+                            "sendFileAsBody": false,
+                            "rules": []
+                        }
+                    ],
+                    "enabled": true
+                },
+                {
+                    "uuid": "d75d71c0-06c9-11ea-bbed-1fa587c193a8",
+                    "documentation": "",
+                    "method": "get",
+                    "endpoint": "game/533807",
+                    "responses": [
+                        {
+                            "uuid": "d75d71c1-06c9-11ea-bbed-1fa587c193a8",
+                            "body": "{\n  \"12\": {\n    \"row\": 1,\n    \"col\": 2,\n    \"color\": \"black\"\n  },\n  \"13\": {\n    \"row\": 1,\n    \"col\": 3,\n    \"color\": \"black\"\n  },\n  \"14\": {\n    \"row\": 1,\n    \"col\": 4,\n    \"color\": \"black\"\n  },\n  \"02\": {\n    \"row\": 0,\n    \"col\": 2,\n    \"color\": \"red\"\n  },\n  \"03\": {\n    \"row\": 0,\n    \"col\": 3,\n    \"color\": \"red\"\n  },\n  \"04\": {\n    \"row\": 0,\n    \"col\": 4,\n    \"color\": \"red\"\n  }\n}",
+                            "latency": 0,
+                            "statusCode": "200",
+                            "headers": [
+                                {
+                                    "key": "",
+                                    "value": ""
+                                }
+                            ],
+                            "filePath": "",
+                            "sendFileAsBody": false,
+                            "rules": []
+                        }
+                    ],
+                    "enabled": true
+                },
+                {
+                    "uuid": "7a8b5510-06cf-11ea-bbed-1fa587c193a8",
+                    "documentation": "",
+                    "method": "post",
+                    "endpoint": "game/:id/move",
+                    "responses": [
+                        {
+                            "uuid": "7a8b5511-06cf-11ea-bbed-1fa587c193a8",
+                            "body": "{\n    \"col\": 1,\n    \"row\": 0\n}",
+                            "latency": 1000,
+                            "statusCode": "200",
+                            "headers": [
+                                {
+                                    "key": "",
+                                    "value": ""
+                                }
+                            ],
+                            "filePath": "",
+                            "sendFileAsBody": false,
+                            "rules": []
+                        },
+                        {
+                            "uuid": "a3d04230-06ea-11ea-bbed-1fa587c193a8",
+                            "body": "{\n    \"col\": \"{{body 'col' '0'}}\",\n    \"row\": \"{{body 'row' '0'}}\"\n}",
+                            "latency": 0,
+                            "statusCode": "200",
+                            "headers": [
+                                {
+                                    "key": "",
+                                    "value": ""
+                                }
+                            ],
+                            "filePath": "",
+                            "sendFileAsBody": false,
+                            "rules": []
+                        }
+                    ],
+                    "enabled": true
+                }
+            ],
+            "proxyMode": false,
+            "proxyHost": "",
+            "https": false,
+            "cors": true,
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        }
+    ]
+}
