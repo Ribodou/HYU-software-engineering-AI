@@ -48,6 +48,15 @@ See the documentation to see the requirements of this project.
 ### Next possible feature implementation
 - Undo move
 
+
+## Starting up the project (only DEV)
+This project can only be used in development mode. (It is not production ready in terms of configuration reasons)
+You will find in the corresponding repository how the software was built (Diagrams, ...)
+
+### Frontend
+- See the [README page](https://github.com/fschirinzi/HYU-SE-Frontend/blob/master/README.md#instlallation--usage) in the repository root folder
+### Backend
+
 ## Contributors
 - **Fabio Motta** (AI)
 - **Marie Pors** (AI)
