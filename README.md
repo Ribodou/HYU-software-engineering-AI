@@ -9,7 +9,9 @@ python3 -m pip install bottle
 git clone https://github.com/Ribodou/HYU-SE-Backend
 ```
 
-### Compiles and minifies for production
+### Launch the server
 ```
 python3 src/main.py
 ```
+
+### Please check the configuration of your firewall if you want to be able to launch the front part on another computer.
