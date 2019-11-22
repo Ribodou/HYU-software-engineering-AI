@@ -70,6 +70,7 @@ See the documentation to see the requirements of this project.
 ![Overview of the components with the communication](./ressources/frontend-design_overview.png)
 
 ### Instlallation & Usage
+First change the directory: `cd src_frontend`
 #### Project setup
 ```
 yarn install
@@ -97,7 +98,7 @@ git clone https://github.com/Ribodou/HYU-SE-Backend
 
 ##### Launch the server
 ```
-python3 src/main.py
+python3 src_backend/src/main.py
 ```
 
 **Please check the configuration of your firewall if you want to be able to launch the front part on another computer.**
