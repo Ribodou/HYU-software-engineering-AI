@@ -56,6 +56,7 @@ See the documentation to see the requirements of this project.
 ### Next possible feature implementation
 - Improve AI
 - Improve documentation
+  - Add a system sequence diagram
 - Undo move
 - Set difficulty
 
