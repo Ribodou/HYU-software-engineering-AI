@@ -1,11 +1,6 @@
 # HYU-software-engineering-AI
 **Project done during a semester at Hanyang University.**
 
-This repository contains only the documentation of the project.
-Visit the corresponding reposiroty to see the code:
-- [Front-end Repository](https://github.com/fschirinzi/HYU-SE-Frontend)
-- [Back-end Repository](https://github.com/Ribodou/HYU-SE-Backend)
-
 **Important links**
 - [REST API DOC](./REST-API.md)
 
@@ -65,15 +60,47 @@ See the documentation to see the requirements of this project.
 ## Overview of the communication
 ![Architecture Design And Implementation](./ressources/Architecture_Design_And_Implementation.png)
 
-## Starting up the project (only DEV)
-This project can only be used in development mode. (It is not production ready in terms of configuration reasons)
-You will find in the corresponding repository how the software was built (Diagrams, ...)
+## Frontend
 
-### Frontend
-- See the [README page](https://github.com/fschirinzi/HYU-SE-Frontend/blob/master/README.md#instlallation--usage) in the repository root folder on how to install the dependencies and run the app
+**For the frontend, we followed the linked tutorial to have a simple working Connect Four game. It was then extended to meet the requirements of the university project.**
+
+- [Connect-Four tutorial](https://rossta.net/blog/series/connect-four.html) 
+
+###  Overview of the design
+![Overview of the components with the communication](./ressources/frontend-design_overview.png)
+
+### Instlallation & Usage
+#### Project setup
+```
+yarn install
+```
+
+##### Configure the environment variables
+Update the `VUE_APP_BACKEND_URL` variable to the backend endpoint
+```
+nano .env
+```
+
+##### Compiles and hot-reloads for development
+```
+yarn run serve
+```
   
-### Backend
-- See the [README page](https://github.com/Ribodou/HYU-SE-Backend#instlallation--usage) in the repository root folder on how to install the dependencies and run the app
+## Backend
+## Instlallation & Usage
+#### Project setup
+```
+sudo apt-get install python3-pip git
+python3 -m pip install bottle
+git clone https://github.com/Ribodou/HYU-SE-Backend
+```
+
+##### Launch the server
+```
+python3 src/main.py
+```
+
+**Please check the configuration of your firewall if you want to be able to launch the front part on another computer.**
   
 
 ## Images
