@@ -67,10 +67,10 @@ This project can only be used in development mode. (It is not production ready i
 You will find in the corresponding repository how the software was built (Diagrams, ...)
 
 ### Frontend
-- See the [README page](https://github.com/fschirinzi/HYU-SE-Frontend/blob/master/README.md#instlallation--usage) in the repository root folder
+- See the [README page](https://github.com/fschirinzi/HYU-SE-Frontend/blob/master/README.md#instlallation--usage) in the repository root folder on how to install the dependencies and run the app
   
 ### Backend
-- See the [README page](https://github.com/Ribodou/HYU-SE-Backend#instlallation--usage) in the repository root folder
+- See the [README page](https://github.com/Ribodou/HYU-SE-Backend#instlallation--usage) in the repository root folder on how to install the dependencies and run the app
   
 
 ## Images
