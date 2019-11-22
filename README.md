@@ -9,6 +9,14 @@ Visit the corresponding reposiroty to see the code:
 **Important links**
 - [REST API DOC](./REST-API.md)
 
+## Contributors
+- **Fabio Motta** (AI)
+- **Marie Pors** (AI)
+- **Bouillette Nicolas** (Software Engineering & AI)
+- **Ren Luca** (Software Engineering & AI)
+- **Robidou Lucas** (Software Engineering & AI)
+- **Schirinzi Francesco** (Software Engineering & AI)
+
 ## Abstract
 During the second semester at Hanyang
 University, we were asked to make a project that involved both
@@ -46,7 +54,10 @@ See the documentation to see the requirements of this project.
 - Play against the AI
 
 ### Next possible feature implementation
+- Improve AI
+- Improve documentation
 - Undo move
+- Set difficulty
 
 ## Overview of the communication
 ![Architecture Design And Implementation](./ressources/Architecture_Design_And_Implementation.png)
@@ -62,10 +73,9 @@ You will find in the corresponding repository how the software was built (Diagra
 - See the [README page](https://github.com/Ribodou/HYU-SE-Backend#instlallation--usage) in the repository root folder
   
 
-## Contributors
-- **Fabio Motta** (AI)
-- **Marie Pors** (AI)
-- **Bouillette Nicolas** (Software Engineering & AI)
-- **Ren Luca** (Software Engineering & AI)
-- **Robidou Lucas** (Software Engineering & AI)
-- **Schirinzi Francesco** (Software Engineering & AI)
+## Images
+### Home
+![Home](./ressources/Home.PNG)
+
+### Connect Four Board
+![Connect Four](./ressources/Game.PNG)
