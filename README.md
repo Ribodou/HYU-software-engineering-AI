@@ -82,3 +82,6 @@ You will find in the corresponding repository how the software was built (Diagra
 
 ### Connect Four Board
 ![Connect Four](./ressources/Game.PNG)
+
+![use cases diagram](https://images-ext-1.discordapp.net/external/-7LoFVS_XQcxImPFEpvS-3NeVETXpSjv7Nz7lYZwizM/https/images-ext-1.discordapp.net/external/npnGDaUW1C9bG_jRyaSsKK1YvET4saRP8hdreKOc1LA/https/media.discordapp.net/attachments/628936206079623190/647078489211666473/Use_Case_Diagram_2.jpg)
+
