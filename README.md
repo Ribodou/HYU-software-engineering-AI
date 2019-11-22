@@ -53,10 +53,12 @@ See the documentation to see the requirements of this project.
 - Load old game
 - Play against the AI
 
-### Next possible feature implementation
+### Next steps
 - Improve AI
 - Improve documentation
   - Add a system sequence diagram
+
+### Possible features
 - Undo move
 - Set difficulty
 
