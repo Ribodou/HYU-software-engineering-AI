@@ -1,5 +1,6 @@
 # HYU-SE-Backend
-This repository contains the backend part of the web project we made for Hanyang university.
+This repository contains the backend part of the [PROJECT](https://github.com/Ribodou/HYU-software-engineering-AI) we made for Hanyang university.
+
 
 # Instlallation & Usage
 ## Project setup
