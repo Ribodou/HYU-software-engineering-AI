@@ -1,7 +1,7 @@
 {
     "id": "mockoon_export",
     "appVersion": "1.6.0",
-    "checksum": "cd3cee9a4e3c98098c25b633a5a1e744",
+    "checksum": "1d6648ad19858a830000f6435bca93c8",
     "subject": "full",
     "data": [
         {
@@ -14,7 +14,7 @@
                 {
                     "uuid": "c9568a31-06c4-11ea-8b9d-6558f27bd000",
                     "documentation": "",
-                    "method": "get",
+                    "method": "post",
                     "endpoint": "game/start",
                     "responses": [
                         {

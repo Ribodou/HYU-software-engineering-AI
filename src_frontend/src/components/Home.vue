@@ -6,7 +6,12 @@
       Everyone had this experience in their lifetime. Either you had a bet with your brother to get the bigger room or to win a bet against a friend. Normally these bets are fought with games. Card games, Chess or other games like Connect four. In life sometimes it’s crucial to win such a bet. But stay close, you don’t have to worry anymore about losing important games with our Software. Using new technologies such as Artificial Intelligence we create a Software that gives you at any moment the winning steps. Connect 4I does not only know long-known moves but also find new moves as the software is trained with each game. To reach this goal, we use already established algorithms and made them better.
     </p>
     <h3>What are you wating for? &#129300;</h3>
-    <button @click="startGame" type="button" class="btn btn-danger">Start a game now</button>
+    Select the difficulty:  
+    <select v-model="selected_difficulty" style="margin-left: 5px;">
+      <option v-for="difficulty in difficulty_options" :key="`option-${difficulty}`" :value="difficulty">{{difficulty}}</option>
+    </select>
+    <br>
+    <button @click="startGame" type="button" class="btn btn-danger" style="margin-top: 5px;">Start a game now</button>
   </div>
 
 </template>
@@ -16,13 +21,24 @@
 
 export default {
   name: 'Home',
+  data() {
+      return {
+          selected_difficulty: 'min-max',
+          difficulty_options: [
+            'min-max',
+            'alpha-zero'
+          ]
+      };
+  },
   methods: {
     startGame(){
-      this.axios.get('http://localhost:8080/api/game/start')
+      this.axios.post('http://localhost:8080/api/game/start', { difficulty: this.selected_difficulty })
       .then((response) => {
         this.$router.push({
           name: 'Game',
-          params: { id: response.data.id }
+          params: {
+            id: response.data.id,
+          }
         })
       }).catch(error => {
         this.$swal("I couldn't create a new game!", `${error.response.status} - ${error.response.statusText}`, 'error');

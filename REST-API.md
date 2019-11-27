@@ -38,9 +38,11 @@ Notes:
 ## Start a new Game
 ```
 URL:            /api/game/start
-Method:         GET
+Method:         POST
 URL Params:     -
-Body:           -
+Body:           {
+                  "difficulty": ['min-max' | 'alpha-zero']
+                }
 
 Success Response:
     - Code: 200 - ok
@@ -80,7 +82,7 @@ Success Response:
         "{ROW}{COL}": {
             "row": [integer],
             "col": [integer],
-            "color": [red | black]
+            "color": ['red' | 'black']
         },
         ...
       }
