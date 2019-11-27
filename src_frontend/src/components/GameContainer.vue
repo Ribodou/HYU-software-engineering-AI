@@ -18,6 +18,9 @@
         <p v-else>
             {{ whoseTurn }}
         </p>
+        <div>
+            <button @click="undoMove" type="button" class="btn btn-danger" style="margin-right: 5px;">Undo move</button>
+        </div>
     </div>
 </template>
 
@@ -48,24 +51,7 @@
         },
 
         created(){
-            this.axios.get('http://localhost:8080/api/game/' + this.$route.params.id)
-            .then((response) => {
-                this.checkers = Object.assign({}, this.checkers,response.data )
-
-
-                var counts = {};
-                for (var prop in this.checkers)
-                    counts[this.checkers[prop].color] = counts[this.checkers[prop].color]+1 || 1;
-
-                if( ((counts[RED] > counts[BLACK]) && (this.playerColor === RED)) ||
-                    ((counts[BLACK] > counts[RED]) && (this.playerColor === BLACK))
-                ){
-                    this.toggleColor()
-                } else if (this.playerColor === BLACK) { // The BLACK player is the AI, so the user should use his color!
-                    this.toggleColor()
-                }
-
-            })
+            this.getGame(this.$route.params.id)
         },
 
         computed: {
@@ -93,6 +79,41 @@
         methods: {
             key,
 
+            startGame(){
+                this.axios.get('http://localhost:8080/api/game/start')
+                    .then((response) => {
+                        this.$router.push({
+                            name: 'Game',
+                            params: { id: response.data.id }
+                        })
+                    }).catch(error => {
+                    this.$swal("I couldn't create a new game!", `${error.response.status} - ${error.response.statusText}`, 'error');
+                })
+            },
+
+            getGame(id){
+                this.axios.get('http://localhost:8080/api/game/' + id)
+                .then((response) => {
+                    this.loadGame(response.data)
+                })
+            },
+
+            loadGame(matrix){
+                this.checkers = Object.assign({}, this.checkers,matrix )
+
+                var counts = {};
+                for (var prop in this.checkers)
+                    counts[this.checkers[prop].color] = counts[this.checkers[prop].color]+1 || 1;
+
+                if( ((counts[RED] > counts[BLACK]) && (this.playerColor === RED)) ||
+                    ((counts[BLACK] > counts[RED]) && (this.playerColor === BLACK))
+                ){
+                    this.toggleColor()
+                } else if (this.playerColor === BLACK) { // The BLACK player is the AI, so the user should use his color!
+                    this.toggleColor()
+                }
+            },
+
             reset() {
                 this.startGame()
                 /*
@@ -109,6 +130,13 @@
                 } else {
                     this.playerColor = RED;
                 }
+            },
+
+            undoMove(){
+                this.axios.post(`http://localhost:8080/api/game/${this.$route.params.id}/undo-move`)
+                .then((response) => {
+                    this.loadGame(response.data)
+                })
             },
 
             setChecker({ row, col }, attrs = {}) {
@@ -235,21 +263,8 @@
                 }
             },
 
-            startGame(){
-                this.axios.get('http://localhost:8080/api/game/start')
-                    .then((response) => {
-                        this.$router.push({
-                            name: 'Game',
-                            params: { id: response.data.id }
-                        })
-                    }).catch(error => {
-                    this.$swal("I couldn't create a new game!", `${error.response.status} - ${error.response.statusText}`, 'error');
-                })
-            },
-
             moveIsValidAndGetAIMove(attr){
-                return this.axios.post(`http://localhost:8080/api/${this.$route.params.id}/move`, attr)
-
+                return this.axios.post(`http://localhost:8080/api/game/${this.$route.params.id}/move`, attr)
             },
 
             notifyNotValidMove(msg){

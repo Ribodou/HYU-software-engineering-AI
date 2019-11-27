@@ -75,7 +75,7 @@ def load_game(game_id):
         headers={'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*'}
     )
 
-@app.route('/api/<game_id>/move', method=["OPTIONS"])
+@app.route('/api/game/<game_id>/move', method=["OPTIONS"])
 def play_game_pass(game_id):
     print("passed (options)")
     return HTTPResponse(
@@ -85,7 +85,7 @@ def play_game_pass(game_id):
     )
 
 
-@app.route('/api/<game_id>/move', method=['GET', 'POST'])
+@app.route('/api/game/<game_id>/move', method=['GET', 'POST'])
 def play_game(game_id):
     """
         Play the game names "game_id". Be carefull, "game_id" is a string !

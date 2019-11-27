@@ -132,3 +132,39 @@ Notes:
     The response contains the move of the AI.
 
 ```
+
+## Undo move
+```
+URL:            /api/game/:id/undo-move
+Method:         POST
+URL Params:     -
+Body:           -
+
+Success Response:
+    - Code: 200 - ok
+      Content:
+      {
+        "{ROW}{COL}": {
+            "row": [integer],
+            "col": [integer],
+            "color": [red | black]
+        },
+        "{ROW}{COL}": {
+            "row": [integer],
+            "col": [integer],
+            "color": ['red' | 'black']
+        },
+        ...
+      }
+
+Error Response:
+    - Code: 500
+      Content:
+      {
+        "msg": [error]
+      }   
+
+Sample Call:
+     this.axios.post(`http://localhost:8080/api/game/${this.$route.params.id}/undo-move`)
+
+```
