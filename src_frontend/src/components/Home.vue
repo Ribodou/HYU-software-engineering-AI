@@ -18,13 +18,13 @@
 
 <script>
 
-
 export default {
   name: 'Home',
   data() {
       return {
           selected_difficulty: 'min-max',
           difficulty_options: [
+            'random',
             'min-max',
             'alpha-zero'
           ]

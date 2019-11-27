@@ -41,7 +41,7 @@ URL:            /api/game/start
 Method:         POST
 URL Params:     -
 Body:           {
-                  "difficulty": ['min-max' | 'alpha-zero']
+                  "difficulty": ['random' | 'min-max' | 'alpha-zero']
                 }
 
 Success Response:
