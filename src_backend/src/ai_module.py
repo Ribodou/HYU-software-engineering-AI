@@ -13,7 +13,7 @@ class AI:
         """
             Play for ai or raise aiCantMoveError if the ai con't play.
         """
-        for i in range(5):  # column
+        for i in range(7):  # column
             for j in range(6): # line
                 if is_move_valid(inJeu, j, i):
                     inJeu[j][i] = color
