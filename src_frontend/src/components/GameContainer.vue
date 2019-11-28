@@ -103,6 +103,7 @@
             },
 
             loadGame(matrix){
+                this.checkers = {};
                 this.checkers = Object.assign({}, this.checkers,matrix )
 
                 var counts = {};
