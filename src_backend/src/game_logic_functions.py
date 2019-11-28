@@ -2,8 +2,8 @@ from errors import moveNotValidError
 
 
 def is_move_valid(inJeu, inLigne, inColonne):
-    # the move is valid if and only if the position is empty and all
-    # position below is taken
+        # the move is valid if and only if the position is empty and all
+        # position below are taken
     if inJeu[inLigne][inColonne]: 
         return False
     for i in range(inLigne+1, len(inJeu)):
