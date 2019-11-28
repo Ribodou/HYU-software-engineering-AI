@@ -98,7 +98,8 @@ git clone https://github.com/Ribodou/HYU-SE-Backend
 
 ##### Launch the server
 ```
-python3 src_backend/src/main.py
+cd src_backend
+python3 src/main.py
 ```
 
 **Please check the configuration of your firewall if you want to be able to launch the front part on another computer.**
