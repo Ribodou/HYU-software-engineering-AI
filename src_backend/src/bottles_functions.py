@@ -6,6 +6,10 @@ from game_logic_functions import victory
 from errors import moveNotValidError, aiCantMoveError
 import ai_module
 from game_logic_functions import place_token
+import os
+import sys
+
+ABSOLUTE_PATH_TO_SCRIPT=os.path.realpath(sys.path[0])
 
 
 def from_list_to_json(a_list):
@@ -60,13 +64,16 @@ def load_game(game_id):
     """
         Load the game names "game_id". Be carefull, "game_id" is a string !
     """
+    
+    print( os.path.join(ABSOLUTE_PATH_TO_SCRIPT, "/../sav/" + game_id + ".json") )
+
     #let's load the game or create a new one if it does not exists
     try:
-        with open("sav/" + game_id + ".json", "r") as sav:
+        with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "r") as sav:
             game = json.loads(sav.read())  # should be a 6*7 array
     except FileNotFoundError:  # new game
         game = [["" for _ in range(7)] for _ in range(6)]  # 6 * 7 array
-        with open("sav/" + game_id + ".json", "w") as sav:
+        with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "w") as sav:
             sav.write(json.dumps(game))
     
     return HTTPResponse(
@@ -91,7 +98,7 @@ def play_game(game_id):
         Play the game names "game_id". Be carefull, "game_id" is a string !
     """
     try:
-        with open("sav/" + game_id + ".json", "r") as sav:
+        with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "r") as sav:
             game = json.loads(sav.read())  # should be a 6*7 array
     except FileNotFoundError:  # the game does not exists
         return HTTPResponse(
@@ -144,7 +151,7 @@ def play_game(game_id):
     if victory(game, row, col, ai_color):
         pass # TODO
 
-    with open("sav/" + game_id + ".json", "w") as sav:
+    with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "w") as sav:
         sav.write(json.dumps(game))
 
 
