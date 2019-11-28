@@ -28,7 +28,6 @@ def horizontal_check(inJeu, inLigne, inColonne, color):
     ColonnePLus = inColonne + 1
     ColonneMoin = inColonne - 1
     while ColonneMoin >= 0:
-        print("e", inLigne, ColonneMoin)
         if inJeu[inLigne][ColonneMoin] == color:
             ColonneMoin -= 1
             compteur += 1
