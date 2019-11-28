@@ -21,6 +21,10 @@
         <div>
             <button @click="undoMove" type="button" class="btn btn-danger" style="margin-right: 5px;">Undo move</button>
         </div>
+        <br>
+        <br>
+        <button @click="startGame" type="button" class="btn btn-success" style="margin-right: 5px;">Start a new game</button>
+
     </div>
 </template>
 
