@@ -31,13 +31,15 @@ class AI:
         raise aiCantMoveError("the ai can't move")
     
     def play_minmax(self, inJeu,color):
-        game,row,col = min_max.play_ia(inJeu)
+        inJeu2 = inJeu.copy()
+        try:
+            game,row,col = min_max.play_ia(inJeu)
+        except aiCantMoveError:
+            return self.play_random(inJeu2, color)
         if(row != None):
             print("I, the ai, play", row, col)
             return game, row, col
-        print("What", game)
         raise aiCantMoveError("the ai can't move")
-        print("Whut")
     
     def play_alpha_zero(self, inJeu, color):
         pass  # TODO

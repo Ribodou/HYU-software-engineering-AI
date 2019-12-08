@@ -2,6 +2,8 @@ import numpy as np
 import random
 import sys
 import math
+from errors import aiCantMoveError
+from copy import deepcopy
 
 ROW_COUNT = 6
 COLUMN_COUNT = 7
@@ -161,8 +163,8 @@ def get_valid_locations(board):
 
 
 def play_ia(inJeu):
-	data_1 = inJeu.copy()
-	data_2 = inJeu.copy()
+	data_1 = deepcopy(inJeu)
+	data_2 = deepcopy(inJeu)
 
 	for a in range(ROW_COUNT):
 		for b in range(COLUMN_COUNT):
@@ -173,7 +175,7 @@ def play_ia(inJeu):
 			if not inJeu[a][b]:
 				data_1[a][b] = EMPTY
 
-	board = data_1.copy()
+	board = deepcopy(data_1)
 
 	for a in range (ROW_COUNT):
 		board[a] = data_1[ROW_COUNT-a-1]
@@ -181,6 +183,8 @@ def play_ia(inJeu):
 	board = np.array(board)
 	
 	col,value = minimax(board, 5, -math.inf, math.inf, True)
+	if col == None:
+		raise aiCantMoveError("Minimax cant'play")
 
 	if is_valid_location(board, col).all():
 		row = get_next_open_row(board, col)
