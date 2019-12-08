@@ -166,7 +166,7 @@ def play_game(game_id):
     with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "w") as sav:
         sav.write(json.dumps(game))
 
-
+    print("returning", {"col": col, "row": abs(row-offset)})
     return HTTPResponse(
         body={"col": col, "row": abs(row-offset)},  # TODO: pass the game too
         status=200,
@@ -180,7 +180,7 @@ def undo_move(game_id):
         Undo the last move of the game named "game_id". Be carefull, "game_id" is a string !
     """
     try:
-        with open("sav/" + game_id + ".json", "r") as sav:
+        with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "r") as sav:
             game = json.loads(sav.read())  # should contains a 6*7 array, the name of the first player and a list of moves
     except FileNotFoundError:  # the game does not exists
         return HTTPResponse(
@@ -206,7 +206,7 @@ def undo_move(game_id):
 
     print("list of move after", game["list_of_moves"])
 
-    with open("sav/" + game_id + ".json", "w") as sav:
+    with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "w") as sav:
         sav.write(json.dumps(game))
     
     return HTTPResponse(
