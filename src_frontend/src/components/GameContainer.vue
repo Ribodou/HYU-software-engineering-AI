@@ -106,6 +106,9 @@
                 this.checkers = {};
                 this.checkers = Object.assign({}, this.checkers,matrix )
 
+                let checkerOfBoard = this.checkers[Object.keys(this.checkers)[0]]
+                this.checkForWinFrom({ row: checkerOfBoard.row, col: checkerOfBoard.col})
+
                 var counts = {};
                 for (var prop in this.checkers)
                     counts[this.checkers[prop].color] = counts[this.checkers[prop].color]+1 || 1;
