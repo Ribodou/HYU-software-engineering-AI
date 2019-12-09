@@ -1,0 +1,3 @@
+[submodule "src_backend/src/ai_module/AlphaZero_Connect4"]
+	path = src_backend/src/ai_module/AlphaZero_Connect4
+	url = https://github.com/plkmo/AlphaZero_Connect4.git
