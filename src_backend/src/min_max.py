@@ -164,13 +164,6 @@ def get_valid_locations(board):
 
 def play_ia(inJeu, piece=AI_PIECE):
 	data_1 = deepcopy(inJeu)
-	data_2 = deepcopy(inJeu)
-
-	if(piece == 'black'):
-		piece = AI_PIECE
-	elif (piece == 'red'):
-		piece = PLAYER_PIECE
-
 	for a in range(ROW_COUNT):
 		for b in range(COLUMN_COUNT):
 			if inJeu[a][b] == 'black':
@@ -179,35 +172,17 @@ def play_ia(inJeu, piece=AI_PIECE):
 				data_1[a][b] = PLAYER_PIECE
 			if not inJeu[a][b]:
 				data_1[a][b] = EMPTY
-
 	board = deepcopy(data_1)
-
 	for a in range (ROW_COUNT):
 		board[a] = data_1[ROW_COUNT-a-1]
-
 	board = np.array(board)
-	
 	col,value = minimax(board, 5, -math.inf, math.inf, True)
 	if col == None:
 		raise aiCantMoveError("Minimax cant'play")
-
-	if is_valid_location(board, col).all():
+	elif is_valid_location(board, col).all():
 		row = get_next_open_row(board, col)
-		drop_piece(board, row, col, piece)
 		row = ROW_COUNT - row -1
-		for a in range (ROW_COUNT):
-			data_1[a] = board[ROW_COUNT-a-1]
-		boardReturn = []
-		for i in range(ROW_COUNT):
-			boardReturn.append([""] * COLUMN_COUNT)
-		for a in range(ROW_COUNT):
-			for b in range(COLUMN_COUNT):
-				if data_1[a][b] == AI_PIECE:
-					boardReturn[a][b] = "black"
-				if data_1[a][b] == PLAYER_PIECE:
-					boardReturn[a][b] = "red"
-		return boardReturn,row,col
-	else:
-		row = None
-		return data_2,row,col
+		return row,col
+
+
 

@@ -10,7 +10,7 @@ import os
 import sys
 
 ABSOLUTE_PATH_TO_SCRIPT=os.path.realpath(sys.path[0])
-
+DEFAULT_DIFFUCULTY = "random"
 
 def from_list_to_json(a_list):
     """
@@ -23,7 +23,7 @@ def from_list_to_json(a_list):
         print(row)
         for j, data in enumerate(row):
             if data:
-                key = str(i) + str(j)
+                key = str(abs(i-offset)) + str(j)
                 dictionnary[key] = {
                     "row": abs(i-offset),
                     "col": j,
@@ -31,6 +31,19 @@ def from_list_to_json(a_list):
                 }
     print("=================")
     return json.dumps(dictionnary)
+
+
+def create_new_game(difficulty="random"):
+    tab = [["" for _ in range(7)] for _ in range(6)]  # 6 * 7 array
+    first_player = None
+    list_of_moves = {}
+    game = {}
+    game["difficulty"] = difficulty
+    game['moves_count'] = 0
+    game["tab"] = tab
+    game["first_player"] = first_player
+    game["list_of_moves"] = list_of_moves
+    return game
 
 
 app = Bottle()
@@ -49,9 +62,18 @@ def start_game():
         Start a new game and send the id to the client.
     """
     print("a new game should start")
+    try:
+        data_from_front = json.loads(request.body.read().decode("utf-8"))
+    except json.decoder.JSONDecodeError:
+        data_from_front = {"difficulty": DEFAULT_DIFFUCULTY}
+    print("creating a new game with", data_from_front)
     # a_uuid = str(uuid4())  # more secure, but will not work with current front
     a_uuid = rd.randint(0, 1000000)
     return_value = {"id": a_uuid}
+
+    with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + str(a_uuid) + ".json", "w") as sav:
+        sav.write(json.dumps(create_new_game(data_from_front["difficulty"])))
+
     return HTTPResponse(
         body=json.dumps(return_value),
         status=200,
@@ -72,16 +94,8 @@ def load_game(game_id):
         with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "r") as sav:
             game = json.loads(sav.read())  # should contains a 6*7 array, the name of the first player and a list of moves
     except FileNotFoundError:  # new game
-        tab = [["" for _ in range(7)] for _ in range(6)]  # 6 * 7 array
-        first_player = None
-        list_of_moves = {}
-        game = {}
-        game['moves_count'] = 0
-        game["tab"] = tab
-        game["first_player"] = first_player
-        game["list_of_moves"] = list_of_moves
         with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "w") as sav:
-            sav.write(json.dumps(game))
+            sav.write(json.dumps(create_new_game()))
     
     response_body = {
         'tab' : from_list_to_json(game["tab"]),
@@ -158,7 +172,7 @@ def play_game(game_id):
 
     try:
         ai = ai_module.AI()
-        game["tab"], row, col = ai.play(game["tab"], ai_color)
+        game["tab"], row, col = ai.play(game["tab"], ai_color, game["difficulty"])
         game['moves_count'] += 1
         game["list_of_moves"][game['moves_count']] = (row, col)
     except aiCantMoveError:
@@ -234,3 +248,4 @@ def undo_move(game_id):
         status=200,
         headers={'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*'}
     )
+
