@@ -11,6 +11,7 @@ class AI:
         return repr(self)
     
     def play(self, inJeu, color, difficulty="normal"):
+        print(color, 'is playing with difficulty ', difficulty)
         if difficulty == "easy":
             return self.play_random(inJeu, color)
         elif difficulty == "normal":
@@ -33,7 +34,7 @@ class AI:
     def play_minmax(self, inJeu,color):
         inJeu2 = inJeu.copy()
         try:
-            game,row,col = min_max.play_ia(inJeu)
+            game,row,col = min_max.play_ia(inJeu, color)
         except aiCantMoveError:
             return self.play_random(inJeu2, color)
         if(row != None):

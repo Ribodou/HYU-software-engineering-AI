@@ -74,16 +74,22 @@ def load_game(game_id):
     except FileNotFoundError:  # new game
         tab = [["" for _ in range(7)] for _ in range(6)]  # 6 * 7 array
         first_player = None
-        list_of_moves = []
+        list_of_moves = {}
         game = {}
+        game['moves_count'] = 0
         game["tab"] = tab
         game["first_player"] = first_player
         game["list_of_moves"] = list_of_moves
         with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "w") as sav:
             sav.write(json.dumps(game))
     
+    response_body = {
+        'tab' : from_list_to_json(game["tab"]),
+        'list_of_moves': game["list_of_moves"]
+    }
+
     return HTTPResponse(
-        body=from_list_to_json(game["tab"]),
+        body=response_body,
         status=200,
         headers={'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*'}
     )
@@ -133,7 +139,8 @@ def play_game(game_id):
         game["tab"] = place_token(game["tab"], data["row"], data["col"], data["color"])
         if not game["first_player"]:
             game["first_player"] = data["color"]  # for now, the first player is considered human
-        game["list_of_moves"].append((data["row"], data["col"]))
+        game['moves_count'] += 1
+        game["list_of_moves"][game['moves_count']] = (data["row"], data["col"])
     except moveNotValidError as e:
         print(e)
         return HTTPResponse(
@@ -152,7 +159,8 @@ def play_game(game_id):
     try:
         ai = ai_module.AI()
         game["tab"], row, col = ai.play(game["tab"], ai_color)
-        game["list_of_moves"].append((row, col))
+        game['moves_count'] += 1
+        game["list_of_moves"][game['moves_count']] = (row, col)
     except aiCantMoveError:
         return HTTPResponse(
             body={"msg": "The AI can't play."},
@@ -189,7 +197,7 @@ def undo_move(game_id):
             headers={'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*', "Access-Control-Allow-Headers": 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'}
         )
 
-    if len(game["list_of_moves"]) == 0:
+    if game["moves_count"] == 0:
         return HTTPResponse(
             body={"msg": "You didn't played yet"},
             status=406,
@@ -198,19 +206,31 @@ def undo_move(game_id):
     
     print("list of move before", game["list_of_moves"])
 
-    lastmove = game["list_of_moves"].pop(-1)
+    lastmove = game["list_of_moves"][str(game['moves_count'])]
     game["tab"][lastmove[0]][lastmove[1]] = ""
-    if len(game["list_of_moves"]) % 2 != 0:  # if the last player is not human, then we must go back two times
-        lastmove = game["list_of_moves"].pop(-1)
+    game['list_of_moves'].pop(str(game['moves_count']))
+    game['moves_count'] -= 1
+
+    print("list of move before", game["list_of_moves"])
+
+    if game['moves_count'] % 2 != 0:  # if the last player is not human, then we must go back two times
+        lastmove = game["list_of_moves"][str(game['moves_count'])]
         game["tab"][lastmove[0]][lastmove[1]] = ""
+        game['list_of_moves'].pop(str(game['moves_count']))
+        game['moves_count'] -= 1
 
     print("list of move after", game["list_of_moves"])
 
     with open(ABSOLUTE_PATH_TO_SCRIPT + "/../sav/" + game_id + ".json", "w") as sav:
         sav.write(json.dumps(game))
+
+    response_body = {
+        'tab' : from_list_to_json(game["tab"]),
+        'list_of_moves': game["list_of_moves"]
+    }
     
     return HTTPResponse(
-        body=from_list_to_json(game["tab"]),
+        body=response_body,
         status=200,
         headers={'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*'}
     )

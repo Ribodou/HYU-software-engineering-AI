@@ -44,6 +44,7 @@
         data() {
             return {
                 checkers: {},
+                moves: {},
                 isLocked: false,
                 playerColor: RED,
                 rowCount: 6,
@@ -65,10 +66,6 @@
                 } else {
                     return `It's a draw!`;
                 }
-            },
-
-            moves() {
-                return Object.values(this.checkers);
             },
 
             whoseTurn() {
@@ -98,16 +95,24 @@
             getGame(id){
                 this.axios.get('http://localhost:8080/api/game/' + id)
                 .then((response) => {
-                    this.loadGame(response.data)
+                    this.loadGame(
+                        JSON.parse(response.data.tab),
+                        response.data.list_of_moves
+                    )
                 })
             },
 
-            loadGame(matrix){
+            loadGame(matrix, moves){
                 this.checkers = {};
-                this.checkers = Object.assign({}, this.checkers,matrix )
+                this.checkers = Object.assign({}, this.checkers,matrix)
 
-                let checkerOfBoard = this.checkers[Object.keys(this.checkers)[0]]
-                this.checkForWinFrom({ row: checkerOfBoard.row, col: checkerOfBoard.col})
+                this.moves = {};
+                this.moves = Object.assign({}, this.moves,moves)
+
+                if(Object.keys(this.checkers).length){
+                    let lastChecker = this.moves[Object.keys(this.checkers).length]
+                    this.checkForWinFrom({ row: lastChecker[0], col: lastChecker[1]})
+                }
 
                 var counts = {};
                 for (var prop in this.checkers)
@@ -141,14 +146,23 @@
             },
 
             undoMove(){
+                if(Object.keys(this.moves).length == 0){
+                    this.$swal("There are no moves to undo!", '', 'error');
+                    return
+                }
+
                 this.axios.post(`http://localhost:8080/api/game/${this.$route.params.id}/undo-move`)
                 .then((response) => {
-                    this.loadGame(response.data)
+                    this.loadGame(
+                        JSON.parse(response.data.tab),
+                        response.data.list_of_moves
+                    )
                 })
             },
 
             setChecker({ row, col }, attrs = {}) {
                 const checker = this.getChecker({ row, col });
+                this.moves[Object.keys(this.checkers).length] = [row, col]
                 return Vue.set(this.checkers, key(row, col), { ...checker, ...attrs });
             },
 
