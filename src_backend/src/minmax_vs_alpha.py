@@ -13,7 +13,7 @@ ABSOLUTE_SAVE_FOLDER_PATH=ABSOLUTE_PATH_TO_SCRIPT + "/../minmax_vs_alpha_sav/"
 MINMAX_COLOR = 'black'
 ALPHAZERO_COLOR = 'red'
 
-ITERATIONS = 10
+ITERATIONS = 3
 
 
 stats = {
@@ -55,19 +55,19 @@ for iter in range(1, ITERATIONS + 1):
     #  Functions
     #####################################################################################################
 
-    def minMax_Move(game):
+    def minMax_Move(game, options):
         try:
             ai = ai_module.AI()
-            game["tab"], row, col = ai.play(game["tab"], MINMAX_COLOR, 'easy')
+            game["tab"], row, col = ai.play(game["tab"], MINMAX_COLOR, 'min-max', options)
         except aiCantMoveError as e:
             print(e)
         
         return game["tab"], row, col
 
-    def alphaZero_Move(game):
+    def alphaZero_Move(game, options):
         try:
             ai = ai_module.AI()
-            game["tab"], row, col = ai.play(game["tab"], ALPHAZERO_COLOR)
+            game["tab"], row, col = ai.play(game["tab"], ALPHAZERO_COLOR, 'min-max', options)
         except aiCantMoveError as e:
             print(e)
         
@@ -81,13 +81,14 @@ for iter in range(1, ITERATIONS + 1):
 
     while(not someone_won):
         ############### MinMax
+        minMaxOptions = {'windowLength': 1}
         start = timer()
-        game["tab"], minmax_row_move, minmax_col_move = minMax_Move(game)
+        game["tab"], minmax_row_move, minmax_col_move = minMax_Move(game, minMaxOptions)
         end = timer()
         time_elapsed = end - start
         game[('time_elapsed_' + MINMAX_COLOR)] += time_elapsed
         game['moves_count'] += 1
-        game["list_of_moves"][game['moves_count']] = (minmax_row_move, minmax_col_move)
+        game["list_of_moves"][game['moves_count']] = {'row':minmax_row_move, 'col': minmax_col_move, 'color': MINMAX_COLOR}
 
         if victory(game["tab"], minmax_row_move, minmax_col_move, MINMAX_COLOR):
             someone_won = True
@@ -98,13 +99,14 @@ for iter in range(1, ITERATIONS + 1):
             break # TODO
 
         ############### AlphaZero
+        alphaZeroOptions = {'windowLength': 4}
         start = timer()
-        game["tab"], alphaZero_row_move, alphaZero_col_move = alphaZero_Move(game)
+        game["tab"], alphaZero_row_move, alphaZero_col_move = alphaZero_Move(game, alphaZeroOptions)
         end = timer()
         time_elapsed = end - start
         game[('time_elapsed_' + ALPHAZERO_COLOR)] += time_elapsed
         game['moves_count'] += 1
-        game["list_of_moves"][game['moves_count']] = (alphaZero_row_move, alphaZero_col_move)
+        game["list_of_moves"][game['moves_count']] = {'row':alphaZero_row_move, 'col': alphaZero_col_move, 'color': ALPHAZERO_COLOR}
 
         if victory(game["tab"], alphaZero_row_move, alphaZero_col_move, ALPHAZERO_COLOR):
             someone_won = True
