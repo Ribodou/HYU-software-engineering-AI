@@ -221,7 +221,7 @@ def undo_move(game_id):
     print("list of move before", game["list_of_moves"])
 
     lastmove = game["list_of_moves"][str(game['moves_count'])]
-    game["tab"][lastmove[0]][lastmove[1]] = ""
+    game["tab"][lastmove['row']][lastmove['col']] = ""
     game['list_of_moves'].pop(str(game['moves_count']))
     game['moves_count'] -= 1
 
@@ -229,7 +229,7 @@ def undo_move(game_id):
 
     if game['moves_count'] % 2 != 0:  # if the last player is not human, then we must go back two times
         lastmove = game["list_of_moves"][str(game['moves_count'])]
-        game["tab"][lastmove[0]][lastmove[1]] = ""
+        game["tab"][lastmove['row']][lastmove['col']] = ""
         game['list_of_moves'].pop(str(game['moves_count']))
         game['moves_count'] -= 1
 
