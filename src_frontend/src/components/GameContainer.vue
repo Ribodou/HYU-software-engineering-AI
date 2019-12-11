@@ -23,7 +23,7 @@
         </div>
         <br>
         <br>
-        <button @click="startGame" type="button" class="btn btn-success" style="margin-right: 5px;">Start a new game</button>
+        <button @click="$router.push('/')" type="button" class="btn btn-success" style="margin-right: 5px;">Start a new game</button>
 
     </div>
 </template>
@@ -104,14 +104,27 @@
 
             loadGame(matrix, moves){
                 this.checkers = {};
-                this.checkers = Object.assign({}, this.checkers,matrix)
+                //this.checkers = Object.assign({}, this.checkers,matrix)
 
                 this.moves = {};
                 this.moves = Object.assign({}, this.moves,moves)
 
+                let keysOfMoves = Object.keys(this.moves).map(Number).sort((a, b) => a - b);
+
+                for(var moveIndex of keysOfMoves){
+                    /* eslint-disable no-console */
+                    console.log(moveIndex)
+
+                    let move = this.moves[moveIndex]
+                    if(move){
+                        this.setChecker({ 'row': move.row, 'col': move.col }, { 'color': move.color });
+                        this.checkForDraw();
+                    }
+                }
+
                 if(Object.keys(this.checkers).length){
                     let lastChecker = this.moves[Object.keys(this.checkers).length]
-                    this.checkForWinFrom({ row: lastChecker[0], col: lastChecker[1]})
+                    this.checkForWinFrom({ row: lastChecker['row'], col: lastChecker['col']})
                 }
 
                 var counts = {};
@@ -162,7 +175,7 @@
 
             setChecker({ row, col }, attrs = {}) {
                 const checker = this.getChecker({ row, col });
-                this.moves[Object.keys(this.checkers).length] = [row, col]
+                this.moves[Object.keys(this.checkers).length] =  { 'row': row, 'col': col, 'color': 'red' }
                 return Vue.set(this.checkers, key(row, col), { ...checker, ...attrs });
             },
 
