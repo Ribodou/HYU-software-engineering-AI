@@ -23,7 +23,7 @@
         </div>
         <br>
         <br>
-        <button @click="$router.push('/')" type="button" class="btn btn-success" style="margin-right: 5px;">Start a new game</button>
+        <button @click="$router.push('/')" type="button" class="btn btn-success" style="margin-right: 5px;">Quit</button>
 
     </div>
 </template>
