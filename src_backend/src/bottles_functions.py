@@ -154,7 +154,7 @@ def play_game(game_id):
         if not game["first_player"]:
             game["first_player"] = data["color"]  # for now, the first player is considered human
         game['moves_count'] += 1
-        game["list_of_moves"][game['moves_count']] = (data["row"], data["col"])
+        game["list_of_moves"][game['moves_count']] = {'row': abs(data["row"]-offset), 'col': data["col"], 'color': data["color"]}
     except moveNotValidError as e:
         print(e)
         return HTTPResponse(
@@ -174,7 +174,7 @@ def play_game(game_id):
         ai = ai_module.AI()
         game["tab"], row, col = ai.play(game["tab"], ai_color, game["difficulty"])
         game['moves_count'] += 1
-        game["list_of_moves"][game['moves_count']] = (row, col)
+        game["list_of_moves"][game['moves_count']] = {'row': abs(row-offset), 'col': col, 'color': ai_color}
     except aiCantMoveError:
         return HTTPResponse(
             body={"msg": "The AI can't play."},
