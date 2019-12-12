@@ -18,7 +18,7 @@
     <div >
       <form class="form-inline d-flex justify-content-center">
         <div class="form-group mr-1">
-          <input style="width: 120px;" type="text" v-model="olgGameId" class="form-control" id="text" placeholder="Game ID">
+          <input style="width: 120px;" type="integer" v-model="olgGameId" class="form-control" id="text" placeholder="Game ID">
         </div>
         <button @click="loadOldGame" type="button" class="btn btn-success">Load and old game</button>
       </form>
@@ -33,7 +33,7 @@ export default {
   name: 'Home',
   data() {
       return {
-          olgGameId: '',
+          olgGameId: null,
           selected_difficulty: 'min-max',
           difficulty_options: [
             'random',
@@ -57,7 +57,12 @@ export default {
       })
     },
     loadOldGame(){
-      this.$router.push({ name: 'Game', params:  {'id': this.olgGameId} })
+      if(parseInt(this.olgGameId) && parseInt(this.olgGameId) > 0 && parseInt(this.olgGameId) <= 1000000){
+        this.$router.push({ name: 'Game', params:  {'id': this.olgGameId} })
+      } else {
+        this.$swal("The Game ID is not valid!", '', 'error');
+      }
+      
     }
   }
 }
