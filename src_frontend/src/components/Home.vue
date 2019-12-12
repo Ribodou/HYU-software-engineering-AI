@@ -18,7 +18,7 @@
     <div >
       <form class="form-inline d-flex justify-content-center">
         <div class="form-group mr-1">
-          <input style="width: 120px;" type="text" v-model="olgGameId" class="form-control" id="text">
+          <input style="width: 120px;" type="text" v-model="olgGameId" class="form-control" id="text" placeholder="Game ID">
         </div>
         <button @click="loadOldGame" type="button" class="btn btn-success">Load and old game</button>
       </form>

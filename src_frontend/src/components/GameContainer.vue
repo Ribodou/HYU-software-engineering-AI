@@ -111,9 +111,6 @@
                 let keysOfMoves = Object.keys(this.moves).map(Number).sort((a, b) => a - b);
 
                 for(var moveIndex of keysOfMoves){
-                    /* eslint-disable no-console */
-                    console.log(moveIndex)
-
                     let move = this.moves[moveIndex]
                     if(move){
                         this.setChecker({ 'row': move.row, 'col': move.col }, { 'color': move.color });
