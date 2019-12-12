@@ -214,10 +214,12 @@ for game in games:
     stats[game['title']] = {
         'iterations_count': 0,
         'player_one': {
-            'won_count': 0
+            'won_count': 0,
+            'settings': game['player_one']
         },
         'player_two': {
-            'won_count': 0
+            'won_count': 0,
+            'settings': game['player_two']
         },
         'game_ids': []
     }
@@ -243,6 +245,8 @@ for game in games:
             list_of_moves = {}
             gameFile = {}
             gameFile['moves_count'] = 0
+            gameFile['player_one_settings'] = game['player_one']
+            gameFile['player_two_settings'] = game['player_two']
             gameFile['time_elapsed_player_one'] = 0
             gameFile['time_elapsed_player_two'] = 0
             gameFile["tab"] = tab
