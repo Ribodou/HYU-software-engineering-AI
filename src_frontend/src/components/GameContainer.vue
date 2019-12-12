@@ -13,7 +13,6 @@
         ></game-board>
         <p v-if="gameOver">
             {{ overMessage }}
-            <a href="#" @click="reset">Play again</a>
         </p>
         <p v-else>
             {{ whoseTurn }}
