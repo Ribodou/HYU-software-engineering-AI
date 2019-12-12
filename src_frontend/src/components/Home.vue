@@ -12,6 +12,17 @@
     </select>
     <br>
     <button @click="startGame" type="button" class="btn btn-danger" style="margin-top: 5px;">Start a game now</button>
+    <br>
+    <br>
+    <h4>or</h4>
+    <div >
+      <form class="form-inline d-flex justify-content-center">
+        <div class="form-group mr-1">
+          <input style="width: 120px;" type="text" v-model="olgGameId" class="form-control" id="text">
+        </div>
+        <button @click="loadOldGame" type="button" class="btn btn-success">Load and old game</button>
+      </form>
+    </div>
   </div>
 
 </template>
@@ -22,6 +33,7 @@ export default {
   name: 'Home',
   data() {
       return {
+          olgGameId: '',
           selected_difficulty: 'min-max',
           difficulty_options: [
             'random',
@@ -43,6 +55,9 @@ export default {
       }).catch(error => {
         this.$swal("I couldn't create a new game!", `${error.response.status} - ${error.response.statusText}`, 'error');
       })
+    },
+    loadOldGame(){
+      this.$router.push({ name: 'Game', params:  {'id': this.olgGameId} })
     }
   }
 }
