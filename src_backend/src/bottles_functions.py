@@ -218,17 +218,19 @@ def undo_move(game_id):
             headers={'Content-type': 'application/json', 'Access-Control-Allow-Origin': '*', "Access-Control-Allow-Headers": 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'}
         )
     
+    offset = len(game["tab"]) - 1
+
     print("list of move before", game["list_of_moves"])
 
     lastmove = game["list_of_moves"][str(game['moves_count'])]
+    lastmove['row'] = abs(lastmove['row']-offset)
     game["tab"][lastmove['row']][lastmove['col']] = ""
     game['list_of_moves'].pop(str(game['moves_count']))
     game['moves_count'] -= 1
 
-    print("list of move before", game["list_of_moves"])
-
     if game['moves_count'] % 2 != 0:  # if the last player is not human, then we must go back two times
         lastmove = game["list_of_moves"][str(game['moves_count'])]
+        lastmove['row'] = abs(lastmove['row']-offset)
         game["tab"][lastmove['row']][lastmove['col']] = ""
         game['list_of_moves'].pop(str(game['moves_count']))
         game['moves_count'] -= 1
