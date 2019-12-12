@@ -166,7 +166,26 @@ stats = {
 
 games = [
     {
-        'title': 'p1w4_MM_vs_AZ', # MiniMax with window 5  vs AlphaZero
+        'title': 'AZ_vs_p1w1_MM_iter8', # MiniMax with windowLength 1 and iter8 file  vs AlphaZero
+        'starting_player': 'player_two',
+        'iterations': 5,
+        'player_one': {
+            'AI': 'alpha-zero',
+            'options': {}
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        }
+    }   
+]
+
+
+'''
+{
+        'title': 'p1w4_MM_vs_AZ', # MiniMax with window 4  vs AlphaZero
         'starting_player': 'player_two',
         'iterations': 1,
         'player_one': {
@@ -181,7 +200,7 @@ games = [
         }
     }, 
     {
-        'title': 'AZ_vs_p1w4_MM', # MiniMax with window 5  vs AlphaZero
+        'title': 'AZ_vs_p1w4_MM', # MiniMax with window 4  vs AlphaZero
         'starting_player': 'player_one',
         'iterations': 20,
         'player_one': {
@@ -194,9 +213,53 @@ games = [
                 'windowLength': 4
             }
         }
+    },
+    {
+        'title': 'AZ_vs_p1w3_MM', 
+        'starting_player': 'player_one',
+        'iterations': 3,
+        'player_one': {
+            'AI': 'alpha-zero',
+            'options': {}
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 3
+            }
+        }
+    },
+    {
+        'title': 'AZ_vs_p1w2_MM', # MiniMax with window 4  vs AlphaZero
+        'starting_player': 'player_one',
+        'iterations': 3,
+        'player_one': {
+            'AI': 'alpha-zero',
+            'options': {}
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 2
+            }
+        }
+    },
+    {
+        'title': 'AZ_vs_p1w1_MM', # MiniMax with window 4  vs AlphaZero
+        'starting_player': 'player_one',
+        'iterations': 3,
+        'player_one': {
+            'AI': 'alpha-zero',
+            'options': {}
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 1
+            }
+        }
     }
-]
-
+'''
 
 
 

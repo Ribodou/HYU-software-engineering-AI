@@ -1,0 +1,1 @@
+{"game_history": {}, "AZ_vs_p1w1_MM_iter8": {"iterations_count": 1, "player_one": {"won_count": 0, "settings": {"AI": "alpha-zero", "options": {}}}, "player_two": {"won_count": 1, "settings": {"AI": "min-max", "options": {"windowLength": 1}}}, "game_ids": ["925421"]}}

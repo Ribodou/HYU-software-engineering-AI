@@ -57,7 +57,8 @@ def play_ia(game, options):
 	# AlphaZero
 	#########################################################################
 	
-	best_net="c4_current_net_trained2_iter7.pth.tar"
+	#best_net="c4_current_net_trained2_iter7.pth.tar"
+	best_net="c4_current_net_trained_iter8.pth.tar"
 	best_net_filename = os.path.join("C:\\Users\\Francesco\\Documents\\2_Schule\\HYU\\HYU-software-engineering-AI\\src_backend\\src\\ai_modules\\AlphaZero_Connect4\\src\\model_data\\", best_net)
 	best_cnet = ConnectNet()
 	cuda = torch.cuda.is_available()
