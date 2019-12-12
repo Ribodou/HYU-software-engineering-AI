@@ -8,7 +8,7 @@ from errors import moveNotValidError, aiCantMoveError
 from timeit import default_timer as timer
 import time
 
-ABSOLUTE_PATH_TO_SCRIPT=os.path.realpath(sys.path[0])
+ABSOLUTE_PATH_TO_SCRIPT=os.path.realpath(os.getcwd())
 ABSOLUTE_SAVE_FOLDER_PATH=ABSOLUTE_PATH_TO_SCRIPT + "/../minmax_vs_alpha_sav/"
 
 timestr = time.strftime("%d%m%Y-%H%M%S")
@@ -23,8 +23,8 @@ stats = {
     'game_history': {}
 }
 
-games = [
-    {
+'''
+{
         'title': 'MM_p1w4_vs_p2w4',
         'starting_player': 'player_one',
         'iterations': 1,
@@ -160,7 +160,45 @@ games = [
             }
         }
     }
+'''
+
+
+
+games = [
+    {
+        'title': 'p1w4_MM_vs_AZ', # MiniMax with window 5  vs AlphaZero
+        'starting_player': 'player_two',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'alpha-zero',
+            'options': {}
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        }
+    }, 
+    {
+        'title': 'AZ_vs_p1w4_MM', # MiniMax with window 5  vs AlphaZero
+        'starting_player': 'player_one',
+        'iterations': 20,
+        'player_one': {
+            'AI': 'alpha-zero',
+            'options': {}
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        }
+    }
 ]
+
+
+
 
 for game in games:
     print("##################################################")
@@ -275,7 +313,15 @@ for game in games:
 
         with open(ABSOLUTE_SAVE_FOLDER_PATH + game_id + ".json", "w") as sav:
             sav.write(json.dumps(gameFile))
-
-
-with open(ABSOLUTE_SAVE_FOLDER_PATH + 'run_' + timestr + ".json", "w") as sav:
+            
+        print('#########################################################################')
+        print('#########################################################################')
+        print('####   Updating the stats file    #######################################')
+        print('#########################################################################')
+        print('#########################################################################')
+        with open(ABSOLUTE_SAVE_FOLDER_PATH + 'run_' + timestr + ".json", "w") as sav:
         sav.write(json.dumps(stats))
+
+
+#with open(ABSOLUTE_SAVE_FOLDER_PATH + 'run_' + timestr + ".json", "w") as sav:
+#        sav.write(json.dumps(stats))
