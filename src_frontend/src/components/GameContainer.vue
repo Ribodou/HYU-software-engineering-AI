@@ -14,9 +14,7 @@
         <p v-if="gameOver">
             {{ overMessage }}
         </p>
-        <p v-else>
-            {{ whoseTurn }}
-        </p>
+        <p></p>
         <div>
             <button @click="undoMove" :disabled="gameOver" type="button" class="btn btn-danger" style="margin-right: 5px;">Undo move</button>
         </div>
