@@ -18,7 +18,7 @@
             {{ whoseTurn }}
         </p>
         <div>
-            <button @click="undoMove" type="button" class="btn btn-danger" style="margin-right: 5px;">Undo move</button>
+            <button @click="undoMove" :disabled="gameOver" type="button" class="btn btn-danger" style="margin-right: 5px;">Undo move</button>
         </div>
         <br>
         <br>
