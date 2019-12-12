@@ -46,5 +46,12 @@ class AI:
             return self.play_random(inJeu2, color, options)
 
     def play_alpha_zero(self, inJeu, color, options):
-        pass  # TODO
+        inJeu2 = inJeu.copy()
+        try:
+            row,col = alpha_zero.play_ia(inJeu, options)
+            inJeu[row][col] = color
+            print("I, the ai, play", row, col)
+            return inJeu, row, col
+        except aiCantMoveError:
+            return self.play_random(inJeu2, color, options)
 

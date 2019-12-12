@@ -9,7 +9,7 @@ from game_logic_functions import place_token
 import os
 import sys
 
-ABSOLUTE_PATH_TO_SCRIPT=os.path.realpath(sys.path[0])
+ABSOLUTE_PATH_TO_SCRIPT=os.path.realpath(os.getcwd())
 DEFAULT_DIFFUCULTY = "random"
 
 def from_list_to_json(a_list):
