@@ -54,4 +54,7 @@ class AI:
             return inJeu, row, col
         except aiCantMoveError:
             return self.play_random(inJeu2, color, options)
+        except:
+            print("It seems, that the AI couldn't play!")
+            return self.play_random(inJeu2, color, options)
 
