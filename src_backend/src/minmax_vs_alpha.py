@@ -6,121 +6,276 @@ import ai_module
 from game_logic_functions import victory
 from errors import moveNotValidError, aiCantMoveError
 from timeit import default_timer as timer
+import time
 
 ABSOLUTE_PATH_TO_SCRIPT=os.path.realpath(sys.path[0])
 ABSOLUTE_SAVE_FOLDER_PATH=ABSOLUTE_PATH_TO_SCRIPT + "/../minmax_vs_alpha_sav/"
 
-MINMAX_COLOR = 'black'
-ALPHAZERO_COLOR = 'red'
-
-ITERATIONS = 3
+timestr = time.strftime("%d%m%Y-%H%M%S")
 
 
-stats = {
-    'iterations_count': 0,
-    'MinMax_Won': 0,
-    'AlphaZero_Won': 0,
+PLAYER_COLOR = {
+    'player_one': 'black',
+    'player_two': 'red'
 }
 
-for iter in range(1, ITERATIONS + 1):
-    #####################################################################################################
-    #  Create new Game
-    #####################################################################################################
+stats = {
+    'game_history': {}
+}
 
-    print("Creating a new game")
-    # a_uuid = str(uuid4())  # more secure, but will not work with current front
-    a_uuid = rd.randint(0, 1000000)
-    game_id = str(a_uuid)
-    print('This game ID is: ', game_id)
+games = [
+    {
+        'title': 'MM_p1w4_vs_p2w4',
+        'starting_player': 'player_one',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        }
+    },
+    {
+        'title': 'MM_p1w4_vs_p2w3',
+        'starting_player': 'player_one',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 3
+            }
+        }
+    },
+    {
+        'title': 'MM_p1w4_vs_p2w2',
+        'starting_player': 'player_one',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 2
+            }
+        }
+    },
+    {
+        'title': 'MM_p1w4_vs_1',
+        'starting_player': 'player_one',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 1
+            }
+        }
+    },
+    {
+        'title': 'MM_p2w4_vs_p1w4',
+        'starting_player': 'player_two',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        }
+    },
+    {
+        'title': 'MM_p2w3_vs_p1w4',
+        'starting_player': 'player_two',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 3
+            }
+        }
+    },
+    {
+        'title': 'MM_p2w2_vs_p1w4',
+        'starting_player': 'player_two',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 2
+            }
+        }
+    },
+    {
+        'title': 'MM_p2w1_vs_p1w4',
+        'starting_player': 'player_two',
+        'iterations': 1,
+        'player_one': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 4
+            }
+        },
+        'player_two': {
+            'AI': 'min-max',
+            'options': {
+                'windowLength': 1
+            }
+        }
+    }
+]
 
-    #let's load the game or create a new one if it does not exists
-    try:
-        with open(ABSOLUTE_SAVE_FOLDER_PATH + game_id + ".json", "r") as sav:
-            game = json.loads(sav.read())  # should contains a 6*7 array, the name of the first player and a list of moves
-    except FileNotFoundError:  # new game
-        tab = [["" for _ in range(7)] for _ in range(6)]  # 6 * 7 array
-        first_player = None
-        list_of_moves = {}
-        game = {}
-        game['moves_count'] = 0
-        game['time_elapsed_black'] = 0
-        game['time_elapsed_red'] = 0
-        game["tab"] = tab
-        game["first_player"] = first_player
-        game["list_of_moves"] = list_of_moves
+for game in games:
+    print("##################################################")
+    print('                  Game settings')
+    print('Title: ', game['title'])
+    print('Starting player: ', game['starting_player'])
+    print('Player ONE plays with AI:      ', game['player_one']['AI'], '      and options: ', game['player_one']['options'])
+    print('Player TWO plays with AI:      ', game['player_two']['AI'], '      and options: ', game['player_two']['options'])
+    print("##################################################")
+
+
+
+    stats[game['title']] = {
+        'iterations_count': 0,
+        'player_one': {
+            'won_count': 0
+        },
+        'player_two': {
+            'won_count': 0
+        },
+        'game_ids': []
+    }
+
+    for iter in range(1, game['iterations'] + 1):
+        #####################################################################################################
+        #  Create new Game
+        #####################################################################################################
+
+        print("Creating a new game")
+        # a_uuid = str(uuid4())  # more secure, but will not work with current front
+        a_uuid = rd.randint(0, 1000000)
+        game_id = str(a_uuid)
+        print('This game ID is: ', game_id)
+
+        #let's load the game or create a new one if it does not exists
+        try:
+            with open(ABSOLUTE_SAVE_FOLDER_PATH + game_id + ".json", "r") as sav:
+                gameFile = json.loads(sav.read())  # should contains a 6*7 array, the name of the first player and a list of moves
+        except FileNotFoundError:  # new game
+            tab = [["" for _ in range(7)] for _ in range(6)]  # 6 * 7 array
+            first_player = None
+            list_of_moves = {}
+            gameFile = {}
+            gameFile['moves_count'] = 0
+            gameFile['time_elapsed_player_one'] = 0
+            gameFile['time_elapsed_player_two'] = 0
+            gameFile["tab"] = tab
+            gameFile["first_player"] = game['starting_player']
+            gameFile["winner"] = ''
+            gameFile["list_of_moves"] = list_of_moves
+            with open(ABSOLUTE_SAVE_FOLDER_PATH + game_id + ".json", "w") as sav:
+                sav.write(json.dumps(gameFile))
+            
+        #####################################################################################################
+        #  Functions
+        #####################################################################################################
+
+        def ai_make_move(game, player, aiName, options):
+            try:
+                ai = ai_module.AI()
+                game["tab"], row, col = ai.play(game["tab"], PLAYER_COLOR[player], aiName, options)
+            except aiCantMoveError as e:
+                print(e)
+            
+            return game["tab"], row, col
+
+        #####################################################################################################
+        #  Moves
+        #####################################################################################################
+
+        someone_won = False
+        current_player_name = game['starting_player']
+
+        while(not someone_won):
+            print("############################################################################################### Player: ", current_player_name)
+            aiOptios = game[current_player_name]['options']
+            start = timer()
+            gameFile["tab"], row_move, col_move = ai_make_move(
+                gameFile,
+                current_player_name,
+                game[current_player_name]['AI'],
+                aiOptios
+            )
+            end = timer()
+            time_elapsed = end - start
+            gameFile[('time_elapsed_' + current_player_name)] += time_elapsed
+            gameFile['moves_count'] += 1
+            gameFile["list_of_moves"][gameFile['moves_count']] = {'row':row_move, 'col': col_move, 'color': PLAYER_COLOR[current_player_name]}
+
+            if victory(gameFile["tab"], row_move, col_move, PLAYER_COLOR[current_player_name]):
+                someone_won = True
+                gameFile["winner"] = current_player_name
+                stats[game['title']][current_player_name]['won_count'] += 1
+                
+                print("##################################################")
+                print('                  Game stats')
+                print('Title: ', game['title'])
+                print('Starting player: ', game['starting_player'])
+                print('Winning player: ', gameFile["winner"])
+                print('Moves to win: ', gameFile['moves_count'])
+                print('Player ONE plays with AI:      ', game['player_one']['AI'], '      and options: ', game['player_one']['options'])
+                print('Player TWO plays with AI:      ', game['player_two']['AI'], '      and options: ', game['player_two']['options'])
+                print("##################################################")
+
+                break
+            
+            current_player_name = 'player_two' if (current_player_name == 'player_one') else 'player_one'
+        
+
+        stats[game['title']]['game_ids'].append(game_id)
+        stats[game['title']]['iterations_count'] += 1
+
         with open(ABSOLUTE_SAVE_FOLDER_PATH + game_id + ".json", "w") as sav:
-            sav.write(json.dumps(game))
-
-    #####################################################################################################
-    #  Functions
-    #####################################################################################################
-
-    def minMax_Move(game, options):
-        try:
-            ai = ai_module.AI()
-            game["tab"], row, col = ai.play(game["tab"], MINMAX_COLOR, 'min-max', options)
-        except aiCantMoveError as e:
-            print(e)
-        
-        return game["tab"], row, col
-
-    def alphaZero_Move(game, options):
-        try:
-            ai = ai_module.AI()
-            game["tab"], row, col = ai.play(game["tab"], ALPHAZERO_COLOR, 'min-max', options)
-        except aiCantMoveError as e:
-            print(e)
-        
-        return game["tab"], row, col
-
-    #####################################################################################################
-    #  Moves
-    #####################################################################################################
-
-    someone_won = False
-
-    while(not someone_won):
-        ############### MinMax
-        minMaxOptions = {'windowLength': 1}
-        start = timer()
-        game["tab"], minmax_row_move, minmax_col_move = minMax_Move(game, minMaxOptions)
-        end = timer()
-        time_elapsed = end - start
-        game[('time_elapsed_' + MINMAX_COLOR)] += time_elapsed
-        game['moves_count'] += 1
-        game["list_of_moves"][game['moves_count']] = {'row':minmax_row_move, 'col': minmax_col_move, 'color': MINMAX_COLOR}
-
-        if victory(game["tab"], minmax_row_move, minmax_col_move, MINMAX_COLOR):
-            someone_won = True
-            stats['MinMax_Won'] += 1
-            print("##################################################")
-            print('Min Max Won!')
-            print("##################################################")
-            break # TODO
-
-        ############### AlphaZero
-        alphaZeroOptions = {'windowLength': 4}
-        start = timer()
-        game["tab"], alphaZero_row_move, alphaZero_col_move = alphaZero_Move(game, alphaZeroOptions)
-        end = timer()
-        time_elapsed = end - start
-        game[('time_elapsed_' + ALPHAZERO_COLOR)] += time_elapsed
-        game['moves_count'] += 1
-        game["list_of_moves"][game['moves_count']] = {'row':alphaZero_row_move, 'col': alphaZero_col_move, 'color': ALPHAZERO_COLOR}
-
-        if victory(game["tab"], alphaZero_row_move, alphaZero_col_move, ALPHAZERO_COLOR):
-            someone_won = True
-            stats['AlphaZero_Won'] += 1
-            print("##################################################")
-            print('AlphaZero Won!')
-            print("##################################################")
-            break # TODO
+            sav.write(json.dumps(gameFile))
 
 
-    with open(ABSOLUTE_SAVE_FOLDER_PATH + game_id + ".json", "w") as sav:
-        sav.write(json.dumps(game))
-
-    stats['iterations_count'] += 1
-
-with open(ABSOLUTE_SAVE_FOLDER_PATH + 'iterations_' + str(ITERATIONS) + ".json", "w") as sav:
+with open(ABSOLUTE_SAVE_FOLDER_PATH + 'run_' + timestr + ".json", "w") as sav:
         sav.write(json.dumps(stats))
