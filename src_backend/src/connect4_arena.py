@@ -320,7 +320,7 @@ for game in games:
         print('#########################################################################')
         print('#########################################################################')
         with open(ABSOLUTE_SAVE_FOLDER_PATH + 'run_' + timestr + ".json", "w") as sav:
-        sav.write(json.dumps(stats))
+            sav.write(json.dumps(stats))
 
 
 #with open(ABSOLUTE_SAVE_FOLDER_PATH + 'run_' + timestr + ".json", "w") as sav:
