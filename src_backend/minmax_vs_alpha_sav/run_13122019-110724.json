@@ -1,0 +1,99 @@
+{
+  "game_history": {},
+  "MM_p1w4_vs_p2w4": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "game_ids": ["263533"]
+  },
+  "MM_p1w4_vs_p2w3": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 3 } }
+    },
+    "game_ids": ["739762"]
+  },
+  "MM_p1w4_vs_p2w2": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 2 } }
+    },
+    "game_ids": ["175506"]
+  },
+  "MM_p1w4_vs_1": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 1 } }
+    },
+    "game_ids": ["250903"]
+  },
+  "MM_p2w4_vs_p1w4": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "game_ids": ["466239"]
+  },
+  "MM_p2w3_vs_p1w4": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 3 } }
+    },
+    "game_ids": ["152561"]
+  },
+  "MM_p2w2_vs_p1w4": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 2 } }
+    },
+    "game_ids": ["873543"]
+  },
+  "MM_p2w1_vs_p1w4": {
+    "iterations_count": 1,
+    "player_one": {
+      "won_count": 1,
+      "settings": { "AI": "min-max", "options": { "windowLength": 4 } }
+    },
+    "player_two": {
+      "won_count": 0,
+      "settings": { "AI": "min-max", "options": { "windowLength": 1 } }
+    },
+    "game_ids": ["396947"]
+  }
+}
